@@ -39,5 +39,72 @@
   },
   "original_published_zip_crc_test_passed": true,
   "reported_phone_error": "invalid block type while extracting APK from ZIP",
-  "phone_error_root_cause_confirmed": false
+  "phone_error_root_cause_confirmed": false,
+  "publication": {
+    "release_url": "https://github.com/kasperscripts/zenin_crack/releases/tag/zenin-icon-crack-v2",
+    "github_actions_run": "https://github.com/kasperscripts/zenin_crack/actions/runs/43042608497",
+    "github_actions_conclusion": "success",
+    "all_three_artifact_sha256_verified_on_github_runner": true,
+    "assets": [
+      {
+        "name": "Zenin_Icon_Crack_Store.z01",
+        "size": 1572864000,
+        "github_asset_sha256": "52fdf0e83127dbecfc185527101116d083f957739ecaaacf596f8bef2d3d58be",
+        "download_url": "https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v2/Zenin_Icon_Crack_Store.z01",
+        "github_digest_matches_local": true
+      },
+      {
+        "name": "Zenin_Icon_Crack_Store.zip",
+        "size": 712703420,
+        "github_asset_sha256": "f41b705ed6d8d65f30f5d4a5593500b8687ee3b018af23dd83b8b9a86a6cd41e",
+        "download_url": "https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v2/Zenin_Icon_Crack_Store.zip",
+        "github_digest_matches_local": true
+      },
+      {
+        "name": "Zenin_Icon_Crack_ZIP64.zip",
+        "size": 2101349281,
+        "github_asset_sha256": "ca2d4d2d3cf56a6b706168261d35ed68f4cc5335bb9b4176062070a180f66d06",
+        "download_url": "https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v2/Zenin_Icon_Crack_ZIP64.zip",
+        "github_digest_matches_local": true
+      }
+    ],
+    "public_download_checks": [
+      {
+        "name": "Zenin_Icon_Crack_Store.z01",
+        "range": "bytes=0-63",
+        "http_status": 206,
+        "local_bytes_match": true
+      },
+      {
+        "name": "Zenin_Icon_Crack_Store.z01",
+        "range": "bytes=1572863936-1572863999",
+        "http_status": 206,
+        "local_bytes_match": true
+      },
+      {
+        "name": "Zenin_Icon_Crack_Store.zip",
+        "range": "bytes=0-63",
+        "http_status": 206,
+        "local_bytes_match": true
+      },
+      {
+        "name": "Zenin_Icon_Crack_Store.zip",
+        "range": "bytes=712703356-712703419",
+        "http_status": 206,
+        "local_bytes_match": true
+      },
+      {
+        "name": "Zenin_Icon_Crack_ZIP64.zip",
+        "range": "bytes=0-63",
+        "http_status": 206,
+        "local_bytes_match": true
+      },
+      {
+        "name": "Zenin_Icon_Crack_ZIP64.zip",
+        "range": "bytes=2101349217-2101349280",
+        "http_status": 206,
+        "local_bytes_match": true
+      }
+    ]
+  }
 }
