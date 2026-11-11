@@ -1,0 +1,49 @@
+{
+  "payload_sha256": "7518d8e5cdbb30ff48a85b01e6a6bf94c3541b04a92e11bd8efbaff1eeacfcb1",
+  "normalizer_cases": 7,
+  "original_ui_submit_and_success_failure_paths_executed": true,
+  "local_worker_accepts_new_key_and_rejects_invalid_input": true,
+  "original_public_authorization_gates_tested": 5,
+  "original_blocking_gate_and_token_validation_tested": true,
+  "incorrect_stored_token_rejected": true,
+  "shutdown_respected": true,
+  "original_contact_initializer_and_decoder_executed": true,
+  "contact_urls": [
+    "https://t.me/Icon_Crack",
+    "https://t.me/Icon_Crack"
+  ],
+  "contact_buffer_guard_bytes_preserved": true,
+  "native_network_functions_called": 0,
+  "android_device_tested": false,
+  "stubs": [
+    "pthread mutex operations",
+    "clock_gettime",
+    "sleep (one iteration)",
+    "static initialization guards",
+    "contact UI drawing"
+  ],
+  "limits": "ARM64 emulation covers key submission and authorization state, not Android UI rendering, game startup or game features.",
+  "entries": 3489,
+  "changed_entries": [
+    "AndroidManifest.xml",
+    "assets/VozmiteMeniaNaRabotuNoTolkoNeTolchkiPidoritIseAndRestPidorasi"
+  ],
+  "apk_sha256": "1fdc769fc79852bb8ddfe768da5fb5009fd02e9d81085ad23087647667d65ce2",
+  "apk_size": 2285567170,
+  "apk_signature_v2_v3_valid": true,
+  "certificate_sha256": "5fe9cea48690773d6fe2d2b3234cdc5da67ebf2e6caddaba338755d0166fb0e3",
+  "zipalign_16kb_check_passed": true,
+  "all_zip_entry_crcs_valid": true,
+  "original_game_dex_unchanged": true,
+  "original_apk_sha256": "f8fd2c7bdf39f2774923925f08fe33e3e5967e46e170eeaf3c83aba5a80958e3",
+  "key": "@Icon_Crack",
+  "telegram": "https://t.me/Icon_Crack",
+  "application_label": "Zenin @Icon_Crack",
+  "zip_file": "Zenin_Icon_Crack.zip",
+  "zip_size": 2101349157,
+  "zip_sha256": "2f4a1bb850e5189a5d1466d7fae00db5a33a6ce9d43be33cca088f71db882bdb",
+  "outer_zip_crc_valid": true,
+  "zip_contains": [
+    "Zenin_Icon_Crack.apk"
+  ]
+}

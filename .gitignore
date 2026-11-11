@@ -1,0 +1,4 @@
+*.apk
+*.so
+__pycache__/
+work/

@@ -1,0 +1,116 @@
+{
+  "source_sha256": "e50bd056c3e3174c358c5c86508ac7c2eea82215c912d2de30482e91cd036a96",
+  "patched_sha256": "7518d8e5cdbb30ff48a85b01e6a6bf94c3541b04a92e11bd8efbaff1eeacfcb1",
+  "size": 123497392,
+  "key": "@Icon_Crack",
+  "telegram": "https://t.me/Icon_Crack",
+  "local_license_worker": true,
+  "server_key_used": false,
+  "changes": [
+    {
+      "offset": 1705324,
+      "length": 928,
+      "description": "Exact local key normalizer; invalid input returns an empty std::string"
+    },
+    {
+      "offset": 1705728,
+      "length": 12,
+      "description": "Local key literal"
+    },
+    {
+      "offset": 1705760,
+      "length": 12,
+      "description": "Local failure caption"
+    },
+    {
+      "offset": 1705808,
+      "length": 16,
+      "description": "Menu channel caption"
+    },
+    {
+      "offset": 1705840,
+      "length": 24,
+      "description": "Contact URL"
+    },
+    {
+      "offset": 1481216,
+      "length": 2896,
+      "description": "Local license worker: consume submitted key, update the original UI, respect shutdown, sleep between polls"
+    },
+    {
+      "offset": 1485236,
+      "length": 464,
+      "description": "Local nonzero authorization token after successful key submission"
+    },
+    {
+      "offset": 1486000,
+      "length": 576,
+      "description": "Validate local authorization state; other public gate accessors remain unchanged"
+    },
+    {
+      "offset": 7521191,
+      "length": 18,
+      "description": "Updated encoded UI text: @Icon_Crack"
+    },
+    {
+      "offset": 7521405,
+      "length": 37,
+      "description": "Updated encoded UI text: Use @Icon_Crack"
+    },
+    {
+      "offset": 104871527,
+      "length": 52,
+      "description": "Updated encoded UI text: Use @Icon_Crack"
+    },
+    {
+      "offset": 1705888,
+      "length": 24,
+      "description": "Encoded contact URL"
+    },
+    {
+      "offset": 5467652,
+      "length": 4,
+      "description": "Relocate contact ciphertext address"
+    },
+    {
+      "offset": 5467656,
+      "length": 4,
+      "description": "Relocate contact ciphertext offset"
+    },
+    {
+      "offset": 5467664,
+      "length": 4,
+      "description": "Contact buffer length remains within its 24-byte allocation"
+    },
+    {
+      "offset": 1705920,
+      "length": 24,
+      "description": "Encoded contact URL"
+    },
+    {
+      "offset": 5467948,
+      "length": 4,
+      "description": "Relocate contact ciphertext address"
+    },
+    {
+      "offset": 5467952,
+      "length": 4,
+      "description": "Relocate contact ciphertext offset"
+    },
+    {
+      "offset": 5467960,
+      "length": 4,
+      "description": "Contact buffer length remains within its 24-byte allocation"
+    },
+    {
+      "offset": 3042480,
+      "length": 8,
+      "description": "Menu channel text pointer"
+    },
+    {
+      "offset": 3042968,
+      "length": 4,
+      "description": "Menu channel character count"
+    }
+  ]
+}
