@@ -2,9 +2,20 @@
 
 После ввода **`@Icon_Crack`** выполняется локальная проверка ключа. Экран входа получает результат через исходные методы интерфейса; сервер лицензирования для этой проверки не используется. Контактные ссылки направлены на <https://t.me/Icon_Crack>, подсказки показывают новый ключ. Название приложения — `Zenin @Icon_Crack`.
 
-**[Скачать готовый ZIP с APK](https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v1/Zenin_Icon_Crack.zip)**
+**[Скачать ZIP64 одним файлом](https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v2/Zenin_Icon_Crack_ZIP64.zip)**
 
-Распакуйте ZIP и установите `Zenin_Icon_Crack.apk`. Ключ вводится с учётом регистра, без пробелов: `@Icon_Crack`.
+Вариант **без сжатия** состоит из двух частей:
+
+- [Zenin_Icon_Crack_Store.z01 — 1500 МиБ](https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v2/Zenin_Icon_Crack_Store.z01)
+- [Zenin_Icon_Crack_Store.zip — 680 МиБ](https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v2/Zenin_Icon_Crack_Store.zip)
+
+Для варианта без сжатия скачайте **обе части в одну папку**, сохраните имена файлов и начните распаковку с `Zenin_Icon_Crack_Store.zip`. В MT Manager или 7-Zip полностью извлеките `Zenin_Icon_Crack.apk` в обычную папку, затем устанавливайте APK из этой папки. Для однофайлового ZIP64 тоже сначала выполните полное извлечение.
+
+Ключ вводится с учётом регистра, без пробелов: `@Icon_Crack`.
+
+APK занимает 2 285 567 170 байт и превышает лимит [GitHub Releases в 2 ГиБ на файл](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases). Поэтому загрузить его отдельным APK в этот релиз нельзя; вариант без сжатия разделён на два тома.
+
+Перепаковка v2 подготовлена после сообщения `invalid block type` при установке из архива. APK и его подпись сохранены побайтно. ZIP64 полностью прочитан Python, Java и Info-ZIP; несжатые тома проверены полной распаковкой 7-Zip с проверкой SHA-256 APK. Причина сбоя на телефоне не установлена: исходный опубликованный ZIP также проходит локальную проверку CRC. Отчёт об упаковке: [archive-verification-v2.json](archive-verification-v2.json), контрольные суммы: [SHA256SUMS-v2](SHA256SUMS-v2).
 
 Сертификат APK отличается от исходной сборки. Если Android не разрешает обновить установленный Standoff/Zenin, потребуется удалить прежнее приложение; при удалении удаляются его локальные данные. Пакет сохранён: `com.axlebolt.standoff2.huawei`, версия игры `1.1.0`, versionCode 3982, minSdk 25, targetSdk 36. Модуль Zenin рассчитан на arm64.
 
@@ -44,3 +55,13 @@ apksigner verify --verbose Zenin_Icon_Crack.apk
 ```
 
 Перепаковка копирует сжатые потоки неизменённых записей ZIP без повторного сжатия. Приватный ключ подписи, пароли и исходный лицензионный ключ не публикуются.
+
+Для воспроизведения упаковки v2 нужны Python 3.11+, Java 21, Info-ZIP `zip`/`unzip` и 7-Zip. Скачайте архив из релиза v1, затем выполните:
+
+```sh
+python3 repack_zip64.py Zenin_Icon_Crack.zip Zenin_Icon_Crack_ZIP64.zip --report zip64-verification.json
+java -Xmx256m VerifyArchive.java Zenin_Icon_Crack_ZIP64.zip
+unzip -t Zenin_Icon_Crack_ZIP64.zip
+unzip Zenin_Icon_Crack.zip Zenin_Icon_Crack.apk
+python3 package_stored.py Zenin_Icon_Crack.apk output --report store-verification.json
+```

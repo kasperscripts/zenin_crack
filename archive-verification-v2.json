@@ -1,0 +1,43 @@
+{
+  "packaging_version": 2,
+  "apk_bytes_unchanged": true,
+  "android_device_tested": false,
+  "zip64": {
+    "source_zip_sha256": "2f4a1bb850e5189a5d1466d7fae00db5a33a6ce9d43be33cca088f71db882bdb",
+    "zip_sha256": "ca2d4d2d3cf56a6b706168261d35ed68f4cc5335bb9b4176062070a180f66d06",
+    "zip_size": 2101349281,
+    "format": "ZIP64",
+    "required_zip_version": 45,
+    "apk_sha256": "1fdc769fc79852bb8ddfe768da5fb5009fd02e9d81085ad23087647667d65ce2",
+    "apk_size": 2285567170,
+    "apk_bytes_unchanged": true,
+    "apk_crc_valid": true,
+    "compressed_stream_copied_without_changes": true,
+    "java_full_extraction_sha256_verified": true,
+    "infozip_full_crc_test_passed": true
+  },
+  "uncompressed": {
+    "format": "split ZIP64",
+    "compression_method": "Store (0), no compression",
+    "apk_sha256": "1fdc769fc79852bb8ddfe768da5fb5009fd02e9d81085ad23087647667d65ce2",
+    "apk_size": 2285567170,
+    "apk_bytes_unchanged": true,
+    "sevenzip_test_passed": true,
+    "sevenzip_full_extraction_sha256_verified": true,
+    "parts": [
+      {
+        "name": "Zenin_Icon_Crack_Store.z01",
+        "size": 1572864000,
+        "sha256": "52fdf0e83127dbecfc185527101116d083f957739ecaaacf596f8bef2d3d58be"
+      },
+      {
+        "name": "Zenin_Icon_Crack_Store.zip",
+        "size": 712703420,
+        "sha256": "f41b705ed6d8d65f30f5d4a5593500b8687ee3b018af23dd83b8b9a86a6cd41e"
+      }
+    ]
+  },
+  "original_published_zip_crc_test_passed": true,
+  "reported_phone_error": "invalid block type while extracting APK from ZIP",
+  "phone_error_root_cause_confirmed": false
+}

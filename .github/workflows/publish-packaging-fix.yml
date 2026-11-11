@@ -1,0 +1,52 @@
+name: Publish ZIP64 and uncompressed APK volumes
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      GIT_LFS_SKIP_SMUDGE: "1"
+    steps:
+      - name: Check out packaging scripts
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+          persist-credentials: false
+      - name: Download the published original archive
+        run: |
+          mkdir -p work
+          gh release download zenin-icon-crack-v1 --pattern Zenin_Icon_Crack.zip --dir work
+      - name: Build ZIP64 and verify the unchanged APK
+        run: |
+          python3 repack_zip64.py work/Zenin_Icon_Crack.zip work/Zenin_Icon_Crack_ZIP64.zip --report work/zip64-verification.json
+          java -Xmx256m VerifyArchive.java work/Zenin_Icon_Crack_ZIP64.zip
+          unzip -t work/Zenin_Icon_Crack_ZIP64.zip
+      - name: Build and verify volumes without compression
+        run: |
+          python3 - <<'PY'
+          import zipfile
+          with zipfile.ZipFile('work/Zenin_Icon_Crack.zip') as archive:
+              archive.extract('Zenin_Icon_Crack.apk', 'work')
+          PY
+          python3 package_stored.py work/Zenin_Icon_Crack.apk work --report work/store-verification.json
+      - name: Match the locally verified artifacts
+        run: |
+          cd work
+          sha256sum -c ../SHA256SUMS-v2
+      - name: Attach verified downloads to the release
+        run: |
+          gh release upload zenin-icon-crack-v2 \
+            work/Zenin_Icon_Crack_ZIP64.zip \
+            work/Zenin_Icon_Crack_Store.z01 \
+            work/Zenin_Icon_Crack_Store.zip \
+            work/zip64-verification.json \
+            work/store-verification.json \
+            SHA256SUMS-v2
