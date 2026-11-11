@@ -2,7 +2,7 @@
 
 После ввода **`@Icon_Crack`** выполняется локальная проверка ключа. Экран входа получает результат через исходные методы интерфейса; сервер лицензирования для этой проверки не используется. Контактные ссылки направлены на <https://t.me/Icon_Crack>, подсказки показывают новый ключ. Название приложения — `Zenin @Icon_Crack`.
 
-**[Скачать готовый ZIP с APK](https://github.com/kasperscripts/zenin_crack/raw/refs/tags/zenin-icon-crack-v1/artifacts/Zenin_Icon_Crack.zip)**
+**[Скачать готовый ZIP с APK](https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v1/Zenin_Icon_Crack.zip)**
 
 Распакуйте ZIP и установите `Zenin_Icon_Crack.apk`. Ключ вводится с учётом регистра, без пробелов: `@Icon_Crack`.
 

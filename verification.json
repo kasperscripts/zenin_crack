@@ -45,5 +45,13 @@
   "outer_zip_crc_valid": true,
   "zip_contains": [
     "Zenin_Icon_Crack.apk"
-  ]
+  ],
+  "publication": {
+    "download_url": "https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v1/Zenin_Icon_Crack.zip",
+    "release_asset_id": 735782964,
+    "github_asset_sha256": "2f4a1bb850e5189a5d1466d7fae00db5a33a6ce9d43be33cca088f71db882bdb",
+    "github_asset_sha256_matches_local_zip": true,
+    "github_actions_checksum_verified": true,
+    "github_actions_run": "https://github.com/kasperscripts/zenin_crack/actions/runs/43037077211"
+  }
 }
