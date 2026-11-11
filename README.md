@@ -1,67 +1,53 @@
-# Zenin — @Icon_Crack
+# Zenin — @Icon_Crack, сборка v3
 
-После ввода **`@Icon_Crack`** выполняется локальная проверка ключа. Экран входа получает результат через исходные методы интерфейса; сервер лицензирования для этой проверки не используется. Контактные ссылки направлены на <https://t.me/Icon_Crack>, подсказки показывают новый ключ. Название приложения — `Zenin @Icon_Crack`.
+Исправлен обработчик входа: он обслуживает вставку ключа, заполняет штатные данные сессии и вызывает штатное включение игровых обработчиков после успешной проверки. Ключ: **`@Icon_Crack`**. Пробелы, табуляция и переносы строк по краям удаляются; регистр ключа учитывается.
 
-**[Скачать ZIP64 одним файлом](https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v2/Zenin_Icon_Crack_ZIP64.zip)**
+**[Скачать v3 одним ZIP64](https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v3/Zenin_Icon_Crack_v3.zip)**
 
-Вариант **без сжатия** состоит из двух частей:
+**Вариант без сжатия — нужны обе части:**
 
-- [Zenin_Icon_Crack_Store.z01 — 1500 МиБ](https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v2/Zenin_Icon_Crack_Store.z01)
-- [Zenin_Icon_Crack_Store.zip — 680 МиБ](https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v2/Zenin_Icon_Crack_Store.zip)
+- [Zenin_Icon_Crack_Store.z01](https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v3/Zenin_Icon_Crack_Store.z01)
+- [Zenin_Icon_Crack_Store.zip](https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v3/Zenin_Icon_Crack_Store.zip)
 
-Для варианта без сжатия скачайте **обе части в одну папку**, сохраните имена файлов и начните распаковку с `Zenin_Icon_Crack_Store.zip`. В MT Manager или 7-Zip полностью извлеките `Zenin_Icon_Crack.apk` в обычную папку, затем устанавливайте APK из этой папки. Для однофайлового ZIP64 тоже сначала выполните полное извлечение.
+Положите обе части в одну папку, сохранив имена. Откройте `.zip` в MT Manager или 7-Zip, полностью извлеките `Zenin_Icon_Crack.apk` в обычную папку, затем установите APK. Архиватор автоматически читает `.z01`: успешная распаковка через `.zip` не означает, что первая часть не нужна. Для однофайлового ZIP64 также сначала выполните полное извлечение.
 
-Ключ вводится с учётом регистра, без пробелов: `@Icon_Crack`.
+APK больше [лимита GitHub Releases в 2 ГиБ на файл](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases), поэтому вариант без сжатия разделён на два тома. Сертификат APK совпадает с выпусками v1/v2; пакет сохранён: `com.axlebolt.standoff2.huawei`. Контактные ссылки ведут на <https://t.me/Icon_Crack>.
 
-APK занимает 2 285 567 170 байт и превышает лимит [GitHub Releases в 2 ГиБ на файл](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases). Поэтому загрузить его отдельным APK в этот релиз нельзя; вариант без сжатия разделён на два тома.
+## Что исправлено в v3
 
-Перепаковка v2 подготовлена после сообщения `invalid block type` при установке из архива. APK и его подпись сохранены побайтно. ZIP64 полностью прочитан Python, Java и Info-ZIP; несжатые тома проверены полной распаковкой 7-Zip с проверкой SHA-256 APK. Причина сбоя на телефоне не установлена: исходный опубликованный ZIP также проходит локальную проверку CRC. Отчёт об упаковке: [archive-verification-v2.json](archive-verification-v2.json), контрольные суммы: [SHA256SUMS-v2](SHA256SUMS-v2).
+- Вставка проходит через исходный Android JNI обработчик. Его проверка формата теперь принимает новый ключ, запрос завершается результатом или ошибкой.
+- Ручной ввод поддерживает как короткие строки, так и строки в динамической памяти; пустой запрос завершается ошибкой.
+- До сообщения об успехе выполняется исходная инициализация данных сессии и исходная проверка, необходимая на следующем этапе запуска.
+- После успешного входа вызывается исходное включение игровых обработчиков, затем повторяется в рабочем цикле. При завершении они восстанавливаются штатным методом.
+- Состояние авторизации хранится в состоянии службы и сохраняется независимо от видимости окна входа.
 
-Сертификат APK отличается от исходной сборки. Если Android не разрешает обновить установленный Standoff/Zenin, потребуется удалить прежнее приложение; при удалении удаляются его локальные данные. Пакет сохранён: `com.axlebolt.standoff2.huawei`, версия игры `1.1.0`, versionCode 3982, minSdk 25, targetSdk 36. Модуль Zenin рассчитан на arm64.
-
-## Изменения
-
-- В ARM64-модуле заменён обработчик лицензионной сессии: он читает отправленный из интерфейса ключ, принимает `@Icon_Crack`, вызывает исходный обработчик успеха и обрабатывает неверный ввод. Между проверками поток ожидает 50 мс и учитывает штатный сигнал завершения.
-- Вместо серверного доказательства сессии используется локальное состояние успешного входа. Публичные методы проверки доступа, проверка сохранённого токена и экран входа сохранены.
-- Изменены подсказки ключа, адрес Telegram и адрес сайта в контактной панели. Тексты по-прежнему декодируются штатной функцией; длины буферов проверены.
-- В manifest изменены только подписи приложения и основной activity. DEX игры и её библиотеки, ресурсы и игровые данные сохранены.
-
-Нативный модуль находится в `assets/VozmiteMeniaNaRabotuNoTolkoNeTolchkiPidoritIseAndRestPidorasi`. Его размер и расположение секций ELF сохранены. Список участков изменений: [native-changes.json](native-changes.json).
+DEX, игровые библиотеки и ресурсы скопированы из предыдущего APK без изменения содержимого. Заменён нативный модуль в `assets/VozmiteMeniaNaRabotuNoTolkoNeTolchkiPidoritIseAndRestPidorasi`. Участки изменений: [native-changes-v3.json](native-changes-v3.json).
 
 ## Проверки и ограничения
 
-Проверены семь случаев ввода ключа в ARM64-эмуляции, исходные пути отправки ключа и обработки успеха/ошибки, пять исходных методов доступа, проверка блокировки, сохранённого токена и завершения потока. Неверный токен отклоняется. В этих проверках сетевые функции не вызывались.
+На старом модуле воспроизведены три дефекта: запрос вставки оставался необработанным, после успешного ввода не включались исходные игровые обработчики и не заполнялись данные сессии для завершающей проверки запуска.
 
-Штатный инициализатор контактной панели и декодер строк исполнены в эмуляции: обе ссылки ведут на `https://t.me/Icon_Crack`, соседние флаги инициализации не повреждены. Mutex, часы, ожидание, статические guards и отрисовка контактов в тесте заменены заглушками.
+Новый модуль проверен в ARM64 эмуляции с загрузкой по адресу выше 4 ГиБ. Исполнены исходные функции чтения и обработки буфера обмена, обновления интерфейса, инициализации данных сессии, последующей проверки запуска и включения/выключения обработчиков с реальной заменой указателя в тестовой памяти. Проверены семь вариантов ручного ввода, четыре варианта вставки, ошибка чтения буфера, несколько рабочих циклов, закрытие окна входа, пять исходных проверок доступа, неверный сохранённый токен и завершение службы. Исходный декодер обеих контактных ссылок также проверен.
 
-Проверены подписи APK v2/v3, выравнивание, CRC всех записей APK и ZIP. Контрольные суммы: [SHA256SUMS](SHA256SUMS). Полный отчёт: [verification.json](verification.json).
+Android JNI окружение и ответы Java буфера обмена, системные свойства устройства, проверка доступности памяти ОС, mutex, выделение памяти, часы, ожидание и статическая инициализация заменены тестовыми реализациями. Вызовы нативной сети в проверках не выполняются. Отчёт: [verification-v3.json](verification-v3.json).
 
-**Запуск на Android-устройстве, подключение к игре и работа игровых функций не проверены.** Проверка в ARM64-эмуляции подтверждает логику ключа и состояния доступа.
+Проверены подписи APK v2/v3, выравнивание библиотек для страниц 16 КиБ, CRC всех записей APK и соответствие вложенного модуля проверенному файлу. Контрольные суммы скачиваемых файлов прилагаются к релизу.
+
+**Установка на телефоне, отрисовка меню и полный запуск игры на Android не проверены.** Эмуляция подтверждает исправления перечисленных путей, но не заменяет испытание на устройстве.
 
 ## Воспроизведение
 
-Нужны Python 3 с `keystone-engine`, `capstone`, `pyelftools`, `unicorn`, а также Android Build Tools.
+Нужны Python 3.11+, зависимости из [requirements-native.txt](requirements-native.txt), Android Build Tools; для упаковки — Java 21, Info-ZIP и 7-Zip. Приватный ключ подписи и его пароль в репозиторий не входят.
 
-Исходный APK SHA-256: `f8fd2c7bdf39f2774923925f08fe33e3e5967e46e170eeaf3c83aba5a80958e3`. Исходный модуль SHA-256: `e50bd056c3e3174c358c5c86508ac7c2eea82215c912d2de30482e91cd036a96`.
+Для патча используется исходный модуль SHA-256 `e50bd056c3e3174c358c5c86508ac7c2eea82215c912d2de30482e91cd036a96` из исходного APK. При обновлении APK можно использовать подписанный APK v1 из релизов с SHA-256 `1fdc769fc79852bb8ddfe768da5fb5009fd02e9d81085ad23087647667d65ce2`.
 
 ```sh
-unzip -p original.apk assets/VozmiteMeniaNaRabotuNoTolkoNeTolchkiPidoritIseAndRestPidorasi > original-payload.so
-python3 patch_native.py original-payload.so patched-payload.so --report changes.json
-python3 verify_native.py patched-payload.so --report native-verification.json
-python3 repack.py original.apk patched-payload.so unsigned.apk --report repack-report.json
+python3 patch_native.py original-payload.so patched-payload.so --report native-changes.json
+python3 verify_startup.py patched-payload.so --baseline previous-payload.so --report native-verification.json
+python3 repack.py previous.apk patched-payload.so unsigned.apk --report repack-report.json
 zipalign -c -P 16 4 unsigned.apk
-apksigner sign --ks YOUR_KEYSTORE --min-sdk-version 25 --v2-signing-enabled true --v3-signing-enabled true --out Zenin_Icon_Crack.apk unsigned.apk
+apksigner sign --ks YOUR_KEYSTORE --min-sdk-version 25 --v1-signing-enabled false --v2-signing-enabled true --v3-signing-enabled true --out Zenin_Icon_Crack.apk unsigned.apk
 apksigner verify --verbose Zenin_Icon_Crack.apk
 ```
 
-Перепаковка копирует сжатые потоки неизменённых записей ZIP без повторного сжатия. Приватный ключ подписи, пароли и исходный лицензионный ключ не публикуются.
-
-Для воспроизведения упаковки v2 нужны Python 3.11+, Java 21, Info-ZIP `zip`/`unzip` и 7-Zip. Скачайте архив из релиза v1, затем выполните:
-
-```sh
-python3 repack_zip64.py Zenin_Icon_Crack.zip Zenin_Icon_Crack_ZIP64.zip --report zip64-verification.json
-java -Xmx256m VerifyArchive.java Zenin_Icon_Crack_ZIP64.zip
-unzip -t Zenin_Icon_Crack_ZIP64.zip
-unzip Zenin_Icon_Crack.zip Zenin_Icon_Crack.apk
-python3 package_stored.py Zenin_Icon_Crack.apk output --report store-verification.json
-```
+`--baseline` можно опустить, если прежний модуль недоступен. Архивы v1/v2 и их отчёты сохранены в истории и релизах; для проверки исправления запуска используйте v3.

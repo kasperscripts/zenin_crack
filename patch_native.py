@@ -27,9 +27,34 @@ def patch(source):
     function(0x1a056c,0x1a090c,"""
         stp xzr, xzr, [x8]
         str xzr, [x8, #16]
+        cbz x0, invalid
+    trim_start:
+        cbz x1, invalid
+        ldrb w9, [x0]
+        cmp w9, #32
+        b.eq skip_start
+        sub w10, w9, #9
+        cmp w10, #4
+        b.hi trim_end
+    skip_start:
+        add x0, x0, #1
+        sub x1, x1, #1
+        b trim_start
+    trim_end:
+        cbz x1, invalid
+        sub x10, x1, #1
+        ldrb w9, [x0, x10]
+        cmp w9, #32
+        b.eq skip_end
+        sub w10, w9, #9
+        cmp w10, #4
+        b.hi compare
+    skip_end:
+        sub x1, x1, #1
+        b trim_end
+    compare:
         cmp x1, #11
         b.ne invalid
-        cbz x0, invalid
         adrp x9, 0x1a0000
         add x9, x9, #0x700
         mov x10, #0
@@ -49,11 +74,34 @@ def patch(source):
         str w11, [x8, #9]
     invalid:
         ret
-    """,'Exact local key normalizer; invalid input returns an empty std::string')
+    """,'Trim pasted ASCII whitespace and normalize the exact local key; invalid input returns an empty std::string')
+    function(0x633274,0x6333ac,"""
+        cmp x1, #11
+        b.ne invalid_clipboard
+        cbz x0, invalid_clipboard
+        adrp x9, 0x1a0000
+        add x9, x9, #0x700
+        mov x10, #0
+    clipboard_compare:
+        ldrb w11, [x0, x10]
+        ldrb w12, [x9, x10]
+        cmp w11, w12
+        b.ne invalid_clipboard
+        add x10, x10, #1
+        cmp x10, #11
+        b.ne clipboard_compare
+        mov w0, #1
+        ret
+    invalid_clipboard:
+        mov w0, #0
+        ret
+    """,'Use the local key in the original Android clipboard validation path')
     put(0x1a0700,b'@Icon_Crack\0','Local key literal')
     put(0x1a0720,b'Invalid key\0','Local failure caption')
     put(0x1a0750,b't.me/Icon_Crack\0','Menu channel caption')
     put(0x1a0770,b'https://t.me/Icon_Crack\0','Contact URL')
+    put(0x1a0800,b'Clipboard unavailable\0','Clipboard failure caption')
+    put(0x1a0840,b'Initialization failed\0','Session initialization failure caption')
     function(0x169a00,0x16a550,"""
         stp x29, x30, [sp, #-0x60]!
         stp x28, x27, [sp, #0x10]
@@ -65,6 +113,19 @@ def patch(source):
         sub sp, sp, #0x260
         stp xzr, xzr, [sp, #0x40]
         str xzr, [sp, #0x50]
+        stp xzr, xzr, [sp, #0xa0]
+        str xzr, [sp, #0xb0]
+        stp xzr, xzr, [sp, #0xc0]
+        str xzr, [sp, #0xd0]
+        adrp x9, 0x75f9000
+        add x9, x9, #0x6cc
+        stlr wzr, [x9]
+        adrp x9, 0x75f9000
+        add x9, x9, #0x8a8
+        stlrb wzr, [x9]
+        add x9, x9, #4
+        mov w10, #1
+        stlrb w10, [x9]
         adrp x0, 0x7dfe000
         add x0, x0, #0x7b8
         bl 0x1a090c
@@ -73,21 +134,87 @@ def patch(source):
         add x9, x9, #0x6b0
         ldarb w9, [x9]
         tbnz w9, #0, done
+        bl 0x1a4624
+        cbz w0, submitted
+        add x0, sp, #0xa0
+        bl 0x632614
+        cbnz w0, clipboard_error
+        ldrb w9, [sp, #0xa0]
+        tbnz w9, #0, clipboard_long
+        add x0, sp, #0xa1
+        lsr x1, x9, #1
+        b clipboard_result
+    clipboard_long:
+        ldp x1, x0, [sp, #0xa8]
+    clipboard_result:
+        mov x2, #0
+        mov x3, #0
+        bl 0x1a467c
+        b clipboard_clear
+    clipboard_error:
+        cmp w0, #7
+        adrp x2, 0x1a0000
+        b.eq clipboard_invalid
+        add x2, x2, #0x800
+        mov x3, #21
+        b clipboard_report
+    clipboard_invalid:
+        add x2, x2, #0x720
+        mov x3, #11
+    clipboard_report:
+        mov x0, #0
+        mov x1, #0
+        bl 0x1a467c
+    clipboard_clear:
+        ldrb w9, [sp, #0xa0]
+        tbz w9, #0, clipboard_small
+        ldr x0, [sp, #0xb0]
+        bl 0x69b380
+    clipboard_small:
+        stp xzr, xzr, [sp, #0xa0]
+        str xzr, [sp, #0xb0]
+    submitted:
         add x0, sp, #0x40
         bl 0x1a44ec
-        cbz w0, sleep
+        cbnz w0, have_key
+        adrp x9, 0x7dfe000
+        ldr w9, [x9, #0x7e0]
+        cmp w9, #2
+        b.eq rejected
+        b activate
+    have_key:
         ldrb w9, [sp, #0x40]
-        tbnz w9, #0, rejected
-        cmp w9, #22
-        b.ne rejected
+        tbnz w9, #0, submitted_long
         add x0, sp, #0x41
-        mov x1, #11
+        lsr x1, x9, #1
+        b normalize
+    submitted_long:
+        ldp x1, x0, [sp, #0x48]
+    normalize:
         add x8, sp, #0x70
         bl 0x1a056c
         ldrb w9, [sp, #0x70]
         cmp w9, #22
         b.ne rejected
+        add x0, sp, #0x70
+        add x1, sp, #0xc0
+        bl 0x6361e0
+        bl 0x636668
+        cbz w0, initialization_failed
+        adrp x9, 0x75f9000
+        add x9, x9, #0x6cc
+        mov w10, #6
+        stlr w10, [x9]
+        adrp x9, 0x75f9000
+        add x9, x9, #0x8ac
+        stlrb wzr, [x9]
         bl 0x1a4618
+        b clear
+    initialization_failed:
+        adrp x0, 0x1a0000
+        add x0, x0, #0x840
+        mov x1, #21
+        bl 0x1a4604
         b clear
     rejected:
         adrp x0, 0x1a0000
@@ -102,6 +229,14 @@ def patch(source):
     small:
         stp xzr, xzr, [sp, #0x40]
         str xzr, [sp, #0x50]
+    activate:
+        adrp x9, 0x75f9000
+        add x9, x9, #0x6cc
+        ldar w10, [x9]
+        cmp w10, #6
+        b.ne sleep
+        mov w0, #1
+        bl 0x46bdcc
     sleep:
         mov x9, #0xf080
         movk x9, #0x2fa, lsl #16
@@ -110,6 +245,14 @@ def patch(source):
         bl 0x67eebc
         b poll
     done:
+        adrp x9, 0x75f9000
+        add x9, x9, #0x6cc
+        stlr wzr, [x9]
+        adrp x9, 0x75f9000
+        add x9, x9, #0x8ac
+        stlrb wzr, [x9]
+        mov w0, #0
+        bl 0x46bdcc
         mov x0, #0
         add sp, sp, #0x260
         ldp x20, x19, [sp, #0x50]
@@ -119,23 +262,24 @@ def patch(source):
         ldp x28, x27, [sp, #0x10]
         ldp x29, x30, [sp], #0x60
         ret
-    """,'Local license worker: consume submitted key, update the original UI, respect shutdown, sleep between polls')
+    """,'Service clipboard and submitted keys, publish a persistent session, activate original game hooks, and restore hooks on shutdown')
     gate="""
         adrp x9, 0x75f9000
         add x9, x9, #0x6b0
         ldarb w10, [x9]
         tbnz w10, #0, no
-        adrp x9, 0x7dfe000
-        ldr w10, [x9, #0x7e0]
-        cmp w10, #4
+        adrp x9, 0x75f9000
+        add x9, x9, #0x6cc
+        ldar w10, [x9]
+        cmp w10, #6
         cset w0, eq
         ret
     no:
         mov x0, #0
         ret
     """
-    function(0x16a9b4,0x16ab84,gate,'Local nonzero authorization token after successful key submission')
-    function(0x16acb0,0x16aef0,gate,'Validate local authorization state; other public gate accessors remain unchanged')
+    function(0x16a9b4,0x16ab84,gate,'Local authorization token from the persistent service session, independent of UI visibility')
+    function(0x16acb0,0x16aef0,gate,'Validate the persistent service session; original public gate accessors remain unchanged')
     def encoded(address,n,key,text):
         plain=text.encode()+b'\0';assert len(plain)<=n
         put(address,crypt(plain.ljust(n,b'\0'),key),'Updated encoded UI text: '+text)

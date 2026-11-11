@@ -1,0 +1,90 @@
+name: Verify and publish Zenin v3 startup fix
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      GIT_LFS_SKIP_SMUDGE: "1"
+    steps:
+      - name: Check out the pinned build
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+          persist-credentials: false
+      - name: Fetch only the signed v3 archive
+        run: |
+          GIT_LFS_SKIP_SMUDGE=0 git -c credential.helper='!gh auth git-credential' lfs pull --include='artifacts/Zenin_Icon_Crack_v3.zip' --exclude=''
+          mkdir -p work
+          mv artifacts/Zenin_Icon_Crack_v3.zip work/Zenin_Icon_Crack_v3.zip
+      - name: Verify and extract the signed APK
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, zipfile
+          from pathlib import Path
+          report=json.loads(Path('verification-v3.json').read_text())
+          source=Path('work/Zenin_Icon_Crack_v3.zip')
+          with source.open('rb') as stream:
+              assert hashlib.file_digest(stream,'sha256').hexdigest()==report['packaging']['zip_sha256']
+          with zipfile.ZipFile(source) as archive:
+              assert archive.namelist()==['Zenin_Icon_Crack.apk']
+              archive.extract('Zenin_Icon_Crack.apk','work')
+          apk=Path('work/Zenin_Icon_Crack.apk')
+          with apk.open('rb') as stream:
+              assert hashlib.file_digest(stream,'sha256').hexdigest()==report['apk']['apk_sha256']
+          assert apk.stat().st_size==report['apk']['apk_size']
+          with zipfile.ZipFile(apk) as archive:
+              data=archive.read('assets/VozmiteMeniaNaRabotuNoTolkoNeTolchkiPidoritIseAndRestPidorasi')
+          assert hashlib.sha256(data).hexdigest()==report['native']['payload_sha256']
+          Path('work/payload.so').write_bytes(data)
+          PY
+      - name: Independently verify ZIP64 extraction
+        run: |
+          python3 - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          report=json.loads(Path('verification-v3.json').read_text())['apk']
+          subprocess.run(['java','-Xmx256m','VerifyArchive.java','work/Zenin_Icon_Crack_v3.zip',report['apk_sha256'],str(report['apk_size'])],check=True)
+          PY
+          unzip -t work/Zenin_Icon_Crack_v3.zip
+      - name: Execute the native clipboard and startup regression checks
+        run: |
+          python3 -m venv work/venv
+          work/venv/bin/pip install --disable-pip-version-check -r requirements-native.txt
+          work/venv/bin/python verify_startup.py work/payload.so --report work/native-verification.json
+      - name: Package the APK without compression and verify extraction
+        run: |
+          python3 - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          report=json.loads(Path('verification-v3.json').read_text())['apk']
+          subprocess.run(['python3','package_stored.py','work/Zenin_Icon_Crack.apk','work','--apk-sha256',report['apk_sha256'],'--report','work/store-verification.json'],check=True)
+          PY
+      - name: Calculate complete download checksums
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          from pathlib import Path
+          lines=[]
+          for name in ['Zenin_Icon_Crack.apk','Zenin_Icon_Crack_v3.zip','Zenin_Icon_Crack_Store.z01','Zenin_Icon_Crack_Store.zip']:
+              with (Path('work')/name).open('rb') as stream:
+                  lines.append(hashlib.file_digest(stream,'sha256').hexdigest()+'  '+name)
+          Path('work/SHA256SUMS-v3').write_text('\n'.join(lines)+'\n')
+          PY
+      - name: Publish verified downloads
+        run: |
+          gh release upload zenin-icon-crack-v3 \
+            work/Zenin_Icon_Crack_v3.zip \
+            work/Zenin_Icon_Crack_Store.z01 \
+            work/Zenin_Icon_Crack_Store.zip \
+            work/native-verification.json \
+            work/store-verification.json \
+            work/SHA256SUMS-v3

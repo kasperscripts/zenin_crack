@@ -1,0 +1,74 @@
+{
+  "build_version": 3,
+  "key": "@Icon_Crack",
+  "telegram": "https://t.me/Icon_Crack",
+  "apk": {
+    "apk_sha256": "f02c9dc0b479f8ea648cf49494b13d44de1cb0080b9b8ec8e8aa4ad874aff159",
+    "apk_size": 2285288443,
+    "payload_sha256": "b41704f0014ef41b290b8d877bb407ec59a9088e5ed0bde7efe97f48bcb5097e",
+    "zip_entries": 3486,
+    "all_apk_zip_crcs_valid": true,
+    "apk_signature_v2_v3_valid": true,
+    "zipalign_16kb_check_passed": true,
+    "certificate_sha256": "5fe9cea48690773d6fe2d2b3234cdc5da67ebf2e6caddaba338755d0166fb0e3",
+    "same_certificate_as_previous_release": true,
+    "android_device_tested": false
+  },
+  "native": {
+    "payload_sha256": "b41704f0014ef41b290b8d877bb407ec59a9088e5ed0bde7efe97f48bcb5097e",
+    "baseline_regressions_reproduced": {
+      "old_success_did_not_enable_original_hooks": true,
+      "old_success_did_not_initialize_startup_binding": true,
+      "old_paste_request_never_serviced": true
+    },
+    "manual_input_cases": 7,
+    "original_android_clipboard_path_cases": 4,
+    "clipboard_failure_finishes_pending_request": true,
+    "real_original_hook_switch_and_memory_updates_executed": true,
+    "original_session_binding_initializer_and_final_startup_check_executed": true,
+    "success_remains_active_across_three_worker_iterations": true,
+    "original_hooks_restored_on_shutdown": true,
+    "session_survives_login_ui_closing": true,
+    "original_public_gates_tested": 5,
+    "wrong_stored_token_rejected": true,
+    "original_contact_initializer_and_decoder_executed": true,
+    "contact_urls": [
+      "https://t.me/Icon_Crack",
+      "https://t.me/Icon_Crack"
+    ],
+    "contact_buffer_guard_bytes_preserved": true,
+    "aslr_base": "0x7000000000",
+    "native_network_calls": 0,
+    "android_device_tested": false,
+    "stubs": [
+      "Android JNI environment/context and Java clipboard responses",
+      "pthread mutexes",
+      "memory allocation/free",
+      "clock and sleep",
+      "C++ static guards",
+      "OS memory accessibility checks",
+      "Android system properties and libc string length"
+    ],
+    "limits": "Executes native clipboard retrieval, normalization, UI state, session and hook transitions; Android rendering and full game startup require a device."
+  },
+  "repack": {
+    "original_sha256": "1fdc769fc79852bb8ddfe768da5fb5009fd02e9d81085ad23087647667d65ce2",
+    "changed_entries": [
+      {
+        "name": "assets/VozmiteMeniaNaRabotuNoTolkoNeTolchkiPidoritIseAndRestPidorasi",
+        "size": 123497392,
+        "sha256": "b41704f0014ef41b290b8d877bb407ec59a9088e5ed0bde7efe97f48bcb5097e"
+      }
+    ],
+    "unchanged_compressed_streams": 3485,
+    "unsigned_size": 2285263061
+  },
+  "packaging": {
+    "format": "ZIP64",
+    "zip_size": 2101070766,
+    "zip_sha256": "0357b47bb12e3d6ee70cc06888912fa7ccbe85b1877d77904ed2a5dda3c79289",
+    "apk_size": 2285288443,
+    "apk_sha256": "f02c9dc0b479f8ea648cf49494b13d44de1cb0080b9b8ec8e8aa4ad874aff159",
+    "full_python_extraction_sha256_verified": true
+  }
+}

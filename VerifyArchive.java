@@ -6,10 +6,11 @@ import java.util.zip.ZipFile;
 /** Verify the complete APK with Java's independent ZIP parser/Inflater. */
 public class VerifyArchive {
     public static void main(String[] args) throws Exception {
-        String expected = "1fdc769fc79852bb8ddfe768da5fb5009fd02e9d81085ad23087647667d65ce2";
+        String expected = args.length > 1 ? args[1] : "1fdc769fc79852bb8ddfe768da5fb5009fd02e9d81085ad23087647667d65ce2";
+        long expectedSize = args.length > 2 ? Long.parseLong(args[2]) : 2285567170L;
         try (ZipFile zip = new ZipFile(Path.of(args[0]).toFile())) {
             var entry = zip.getEntry("Zenin_Icon_Crack.apk");
-            if (entry == null || entry.getSize() != 2285567170L) throw new AssertionError("APK size");
+            if (entry == null || entry.getSize() != expectedSize) throw new AssertionError("APK size");
             var digest = MessageDigest.getInstance("SHA-256");
             var crc = new java.util.zip.CRC32();
             long count = 0;

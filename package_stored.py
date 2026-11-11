@@ -21,10 +21,13 @@ def main():
     parser.add_argument("apk", type=Path)
     parser.add_argument("output_dir", type=Path)
     parser.add_argument("--sevenzip", default=shutil.which("7zz") or shutil.which("7z"))
+    parser.add_argument("--apk-sha256", default=APK_SHA256)
     parser.add_argument("--report", type=Path, required=True)
     args = parser.parse_args()
     apk = args.apk.resolve()
-    assert apk.name == "Zenin_Icon_Crack.apk" and sha256(apk) == APK_SHA256
+    assert len(args.apk_sha256) == 64
+    int(args.apk_sha256, 16)
+    assert apk.name == "Zenin_Icon_Crack.apk" and sha256(apk) == args.apk_sha256
     assert args.sevenzip, "7-Zip is required for independent verification"
     output_dir = args.output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -53,11 +56,11 @@ def main():
             digest.update(block)
             count += len(block)
         assert process.wait() == 0
-    assert digest.hexdigest() == APK_SHA256 and count == apk.stat().st_size
+    assert digest.hexdigest() == args.apk_sha256 and count == apk.stat().st_size
     report = {
         "format": "split ZIP64",
         "compression_method": "Store (0), no compression",
-        "apk_sha256": APK_SHA256,
+        "apk_sha256": args.apk_sha256,
         "apk_size": count,
         "apk_bytes_unchanged": True,
         "sevenzip_test_passed": True,
