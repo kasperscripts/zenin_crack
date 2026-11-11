@@ -49,7 +49,8 @@
       "OS memory accessibility checks",
       "Android system properties and libc string length"
     ],
-    "limits": "Executes native clipboard retrieval, normalization, UI state, session and hook transitions; Android rendering and full game startup require a device."
+    "limits": "Executes native clipboard retrieval, normalization, UI state, session and hook transitions; Android rendering and full game startup require a device.",
+    "also_verified_on_github_runner": true
   },
   "repack": {
     "original_sha256": "1fdc769fc79852bb8ddfe768da5fb5009fd02e9d81085ad23087647667d65ce2",
@@ -69,6 +70,97 @@
     "zip_sha256": "0357b47bb12e3d6ee70cc06888912fa7ccbe85b1877d77904ed2a5dda3c79289",
     "apk_size": 2285288443,
     "apk_sha256": "f02c9dc0b479f8ea648cf49494b13d44de1cb0080b9b8ec8e8aa4ad874aff159",
-    "full_python_extraction_sha256_verified": true
+    "full_python_extraction_sha256_verified": true,
+    "java_full_extraction_sha256_verified": true,
+    "infozip_full_crc_verified_on_github": true
+  },
+  "uncompressed_packaging": {
+    "format": "split ZIP64",
+    "compression_method": "Store (0), no compression",
+    "apk_sha256": "f02c9dc0b479f8ea648cf49494b13d44de1cb0080b9b8ec8e8aa4ad874aff159",
+    "apk_size": 2285288443,
+    "apk_bytes_unchanged": true,
+    "sevenzip_test_passed": true,
+    "sevenzip_full_extraction_sha256_verified": true,
+    "parts": [
+      {
+        "name": "Zenin_Icon_Crack_Store.z01",
+        "size": 1572864000,
+        "sha256": "0b0ec95ed1e476f6415e2e2cf23fc17731d1cac053e0d54425d6015c3d66b10f"
+      },
+      {
+        "name": "Zenin_Icon_Crack_Store.zip",
+        "size": 712424693,
+        "sha256": "38f22e8f3786d63b613c7f90a248293e539888a18ed5031571e31064dbb17517"
+      }
+    ]
+  },
+  "publication": {
+    "release_url": "https://github.com/kasperscripts/zenin_crack/releases/tag/zenin-icon-crack-v3",
+    "github_actions_run": "https://github.com/kasperscripts/zenin_crack/actions/runs/43058334353",
+    "github_actions_conclusion": "success",
+    "assets": [
+      {
+        "name": "Zenin_Icon_Crack_v3.zip",
+        "size": 2101070766,
+        "sha256": "0357b47bb12e3d6ee70cc06888912fa7ccbe85b1877d77904ed2a5dda3c79289",
+        "download_url": "https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v3/Zenin_Icon_Crack_v3.zip",
+        "github_digest_matches_verified_artifact": true
+      },
+      {
+        "name": "Zenin_Icon_Crack_Store.z01",
+        "size": 1572864000,
+        "sha256": "0b0ec95ed1e476f6415e2e2cf23fc17731d1cac053e0d54425d6015c3d66b10f",
+        "download_url": "https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v3/Zenin_Icon_Crack_Store.z01",
+        "github_digest_matches_verified_artifact": true
+      },
+      {
+        "name": "Zenin_Icon_Crack_Store.zip",
+        "size": 712424693,
+        "sha256": "38f22e8f3786d63b613c7f90a248293e539888a18ed5031571e31064dbb17517",
+        "download_url": "https://github.com/kasperscripts/zenin_crack/releases/download/zenin-icon-crack-v3/Zenin_Icon_Crack_Store.zip",
+        "github_digest_matches_verified_artifact": true
+      }
+    ],
+    "public_download_checks": [
+      {
+        "name": "Zenin_Icon_Crack_v3.zip",
+        "range": "bytes=0-63",
+        "http_status": 206,
+        "content_range_size_correct": true,
+        "local_bytes_match": true
+      },
+      {
+        "name": "Zenin_Icon_Crack_v3.zip",
+        "range": "bytes=2101070702-2101070765",
+        "http_status": 206,
+        "content_range_size_correct": true,
+        "local_bytes_match": true
+      },
+      {
+        "name": "Zenin_Icon_Crack_Store.z01",
+        "range": "bytes=0-63",
+        "http_status": 206,
+        "content_range_size_correct": true
+      },
+      {
+        "name": "Zenin_Icon_Crack_Store.z01",
+        "range": "bytes=1572863936-1572863999",
+        "http_status": 206,
+        "content_range_size_correct": true
+      },
+      {
+        "name": "Zenin_Icon_Crack_Store.zip",
+        "range": "bytes=0-63",
+        "http_status": 206,
+        "content_range_size_correct": true
+      },
+      {
+        "name": "Zenin_Icon_Crack_Store.zip",
+        "range": "bytes=712424629-712424692",
+        "http_status": 206,
+        "content_range_size_correct": true
+      }
+    ]
   }
 }
