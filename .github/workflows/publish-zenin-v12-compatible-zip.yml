@@ -1,0 +1,37 @@
+name: Publish NuarDLC News 1.2 compatible ZIP
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      GIT_LFS_SKIP_SMUDGE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+          persist-credentials: false
+      - name: Fetch the existing verified artifact
+        run: |
+          GIT_LFS_SKIP_SMUDGE=0 git -c credential.helper='!gh auth git-credential' lfs pull --include='artifacts/NuarDLC_News_v1.2_fix_v2.zip' --exclude=''
+      - name: Rewrap as ZIP32 and verify the complete extraction
+        run: |
+          python3 v1.2-nuardlc/v2/compat/repack_zip32.py artifacts/NuarDLC_News_v1.2_fix_v2.zip NuarDLC_News_v1.2_v2_compat.zip --report runner-zip32-verification.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          expected=json.loads(Path('v1.2-nuardlc/v2/compat/zip32-packaging-verification.json').read_text())
+          actual=json.loads(Path('runner-zip32-verification.json').read_text())
+          for field in ['format','zip64_extensions','zip_size','zip_sha256','apk_size','apk_sha256','apk_changed','compressed_stream_sha256','full_extraction_sha256_and_crc_verified']:
+              assert expected[field]==actual[field],field
+          print('PASS: ZIP32 is identical to the locally verified file; APK bytes unchanged')
+          PY
+      - name: Publish the compatible ZIP
+        run: |
+          gh release upload zenin-v1.2-nuardlc-news-v2 NuarDLC_News_v1.2_v2_compat.zip v1.2-nuardlc/v2/SHA256SUMS v1.2-nuardlc/v2/compat/zip32-packaging-verification.json v1.2-nuardlc/v2/compat/remote-extraction-verification.json --clobber
+          gh release edit zenin-v1.2-nuardlc-news-v2 --notes-file v1.2-nuardlc/v2/release-notes.md
