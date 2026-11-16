@@ -1,0 +1,12 @@
+{
+  "format": "7z",
+  "archive_size": 2036830863,
+  "archive_sha256": "83ee87b61a72e6130f2b51bb0d3b71fddcae84300f8147a98d764d18a2fb983a",
+  "decoder": "libarchive 3.7.4",
+  "full_extraction_sha256_and_crc_verified": true,
+  "apk_name": "NuarDLC_News_v1.2_fix_v2.apk",
+  "apk_size": 2285563072,
+  "apk_sha256": "96656cba9da615a4a8f103fc5ee2469c8fbd1a77d203561c251ad4c86840e0ae",
+  "apk_changed": false,
+  "android_mt_manager_tested": false
+}

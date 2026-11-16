@@ -1,0 +1,39 @@
+name: Publish NuarDLC News 1.2 7z download
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      GIT_LFS_SKIP_SMUDGE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+          persist-credentials: false
+      - name: Get the verified APK container and pinned compressor
+        run: |
+          mkdir -p work
+          curl --fail --location --retry 3 --output work/source.zip 'https://github.com/kasperscripts/zenin_crack/releases/download/zenin-v1.2-nuardlc-news-v2/NuarDLC_News_v1.2_fix_v2.zip'
+          python3 v1.2-nuardlc/v2/sevenzip/setup_7zip.py work/tools
+      - name: Build a standard 7z archive with the unchanged APK
+        run: |
+          python3 v1.2-nuardlc/v2/sevenzip/package_7z.py work/source.zip work/NuarDLC_News_v1.2_v2.7z --sevenzip work/tools/7zz --report work/sevenzip-packaging-verification.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          local=json.loads(Path('v1.2-nuardlc/v2/sevenzip/sevenzip-packaging-verification.json').read_text())
+          actual=json.loads(Path('work/sevenzip-packaging-verification.json').read_text())
+          for key in ['format','compression','dictionary_bytes','solid','archive_size','archive_sha256','apk_size','apk_sha256','apk_changed','sevenzip_binary_sha256','encoder_options']:
+              assert local[key]==actual[key],key
+          print('PASS: generated archive matches the locally tested 7z exactly')
+          PY
+      - name: Publish verified 7z and extraction reports
+        run: |
+          gh release upload zenin-v1.2-nuardlc-news-v2 work/NuarDLC_News_v1.2_v2.7z v1.2-nuardlc/v2/SHA256SUMS v1.2-nuardlc/v2/sevenzip/sevenzip-packaging-verification.json v1.2-nuardlc/v2/sevenzip/libarchive-verification.json --clobber
+          gh release edit zenin-v1.2-nuardlc-news-v2 --notes-file v1.2-nuardlc/v2/release-notes.md
