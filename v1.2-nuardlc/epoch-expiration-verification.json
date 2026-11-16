@@ -1,0 +1,30 @@
+{
+  "actual_arm64_functions_executed": true,
+  "epoch_start_utc": "2026-11-16T00:00:00Z",
+  "cases": [
+    {
+      "seconds_since_2026_11_16": 0,
+      "login_and_original_hook_activation_passed": true
+    },
+    {
+      "seconds_since_2026_11_16": 86401,
+      "login_and_original_hook_activation_passed": true
+    },
+    {
+      "seconds_since_2026_11_16": 604800,
+      "login_and_original_hook_activation_passed": true
+    },
+    {
+      "seconds_since_2026_11_16": 31536000,
+      "login_and_original_hook_activation_passed": true
+    },
+    {
+      "seconds_since_2026_11_16": 157680000,
+      "login_and_original_hook_activation_passed": true
+    }
+  ],
+  "server_calls": 0,
+  "android_device_tested": false,
+  "payload_sha256": "d86997426678408b39eff8bf77e7f626aab1c58d95ada7cd7cef1a897422c1b4",
+  "key": "@NuarDLC_News"
+}

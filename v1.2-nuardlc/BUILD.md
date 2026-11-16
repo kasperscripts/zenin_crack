@@ -7,6 +7,7 @@ Extract the original APK from the provided source ZIP. Verify its SHA-256 agains
 ```sh
 python patch_native.py original-payload.so patched-payload.so --report native-changes.json
 python verify_startup.py patched-payload.so --report native-verification.json
+python verify_epoch_expiration.py patched-payload.so --report epoch-expiration-verification.json
 python repack.py original.apk patched-payload.so unsigned.apk --report repack-report.json
 zipalign -c -P 16 4 unsigned.apk
 apksigner sign --ks YOUR_KEYSTORE --min-sdk-version 25 --v1-signing-enabled false --v2-signing-enabled true --v3-signing-enabled true --out Zenin_v1.2_NuarDLC_News.apk unsigned.apk
