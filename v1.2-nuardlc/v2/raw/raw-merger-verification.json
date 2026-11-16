@@ -1,0 +1,10 @@
+{
+  "shell": "/bin/sh on Linux",
+  "full_merge_exit_code": 0,
+  "assembled_apk_size": 2285563072,
+  "assembled_apk_sha256": "96656cba9da615a4a8f103fc5ee2469c8fbd1a77d203561c251ad4c86840e0ae",
+  "signed_apk_bytes_unchanged": true,
+  "damaged_part_rejected": true,
+  "failure_creates_no_apk": true,
+  "android_execution_tested": false
+}

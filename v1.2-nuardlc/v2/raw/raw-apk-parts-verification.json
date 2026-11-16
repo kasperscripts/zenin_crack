@@ -1,0 +1,25 @@
+{
+  "format": "raw APK byte parts",
+  "compression": null,
+  "parts": [
+    {
+      "name": "NuarDLC_News_v1.2_v2.apk.part1",
+      "size": 1073741824,
+      "sha256": "212e4bb2e4305fd630f37c233e50e9773c859db1fa57ba444c5252a35fb1a60b"
+    },
+    {
+      "name": "NuarDLC_News_v1.2_v2.apk.part2",
+      "size": 1211821248,
+      "sha256": "e857215caf7cdcc79b81e7cd1cfc7f358b3be1b027471035f6ed13bcb2d31433"
+    }
+  ],
+  "merger_name": "Build_NuarDLC_News_APK.sh",
+  "merger_size": 2537,
+  "merger_sha256": "1494a641580e221a244e5e1bbe03c80c130b51100c94187ae54d8538816f7b75",
+  "assembled_apk_name": "NuarDLC_News_v1.2_v2_ready.apk",
+  "apk_size": 2285563072,
+  "apk_sha256": "96656cba9da615a4a8f103fc5ee2469c8fbd1a77d203561c251ad4c86840e0ae",
+  "apk_changed": false,
+  "source_zip_sha256": "a5269c95b04bff67532379d184b2d525947091cfa827764bfb88294971c7c77a",
+  "android_execution_tested": false
+}

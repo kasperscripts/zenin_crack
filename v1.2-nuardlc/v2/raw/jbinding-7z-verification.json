@@ -1,0 +1,9 @@
+{
+  "library": "SevenZipJBinding 16.02-2.01",
+  "platform": "Linux-amd64",
+  "extract_all_test_mode": false,
+  "result": "OK",
+  "apk_size": 2285563072,
+  "apk_sha256": "96656cba9da615a4a8f103fc5ee2469c8fbd1a77d203561c251ad4c86840e0ae",
+  "android_tested": false
+}

@@ -1,0 +1,38 @@
+name: Publish NuarDLC News raw APK parts
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      GIT_LFS_SKIP_SMUDGE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+          persist-credentials: false
+      - name: Fetch the verified source container
+        run: |
+          mkdir -p work
+          curl --fail --location --retry 3 --output work/source.zip 'https://github.com/kasperscripts/zenin_crack/releases/download/zenin-v1.2-nuardlc-news-v2/NuarDLC_News_v1.2_fix_v2.zip'
+      - name: Produce the APK byte parts and checked merger
+        run: |
+          python3 v1.2-nuardlc/v2/raw/split_apk.py work/source.zip work/raw --report work/raw-apk-parts-verification.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          expected=json.loads(Path('v1.2-nuardlc/v2/raw/raw-apk-parts-verification.json').read_text())
+          actual=json.loads(Path('work/raw-apk-parts-verification.json').read_text())
+          for key in ['format','compression','parts','merger_name','merger_size','merger_sha256','assembled_apk_name','apk_size','apk_sha256','apk_changed']:
+              assert actual[key]==expected[key],key
+          print('PASS: both raw parts and the merger match the locally assembled and verified files')
+          PY
+      - name: Publish the raw parts and merger
+        run: |
+          gh release upload zenin-v1.2-nuardlc-news-v2 work/raw/NuarDLC_News_v1.2_v2.apk.part1 work/raw/NuarDLC_News_v1.2_v2.apk.part2 work/raw/Build_NuarDLC_News_APK.sh v1.2-nuardlc/v2/raw/raw-apk-parts-verification.json v1.2-nuardlc/v2/raw/raw-merger-verification.json v1.2-nuardlc/v2/SHA256SUMS --clobber
+          gh release edit zenin-v1.2-nuardlc-news-v2 --notes-file v1.2-nuardlc/v2/release-notes.md
