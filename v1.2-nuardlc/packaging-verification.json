@@ -1,0 +1,10 @@
+{
+  "format": "ZIP64",
+  "zip_size": 2101097534,
+  "zip_sha256": "874c99502379dcebd3e92deb4ecb5432d7c0d083fa85446eda96ea63ed96cdae",
+  "apk_size": 2285308923,
+  "apk_sha256": "87c2615f4fb39c5a543cc02bd4e8f4517e836870c6c7ec2bd2f4af58249dd989",
+  "full_python_extraction_sha256_verified": true,
+  "sevenzip_crc_test_passed": true,
+  "infozip_crc_test_passed": true
+}

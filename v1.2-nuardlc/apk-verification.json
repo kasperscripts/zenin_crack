@@ -1,0 +1,11 @@
+{
+  "apk_size": 2285308923,
+  "apk_sha256": "87c2615f4fb39c5a543cc02bd4e8f4517e836870c6c7ec2bd2f4af58249dd989",
+  "payload_sha256": "d86997426678408b39eff8bf77e7f626aab1c58d95ada7cd7cef1a897422c1b4",
+  "apk_signature_v2_v3_valid": true,
+  "zipalign_16kb_check_passed": true,
+  "all_apk_zip_crcs_valid": true,
+  "certificate_sha256": "5fe9cea48690773d6fe2d2b3234cdc5da67ebf2e6caddaba338755d0166fb0e3",
+  "same_certificate_as_zenin_v3": true,
+  "android_device_tested": false
+}

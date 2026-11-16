@@ -1,0 +1,84 @@
+{
+  "version": "Zenin 1.2",
+  "key": "@NuarDLC_News",
+  "telegram": "https://t.me/NuarDLC_News",
+  "local_key_expiration": null,
+  "source_server_key_used": false,
+  "apk": {
+    "apk_size": 2285308923,
+    "apk_sha256": "87c2615f4fb39c5a543cc02bd4e8f4517e836870c6c7ec2bd2f4af58249dd989",
+    "payload_sha256": "d86997426678408b39eff8bf77e7f626aab1c58d95ada7cd7cef1a897422c1b4",
+    "apk_signature_v2_v3_valid": true,
+    "zipalign_16kb_check_passed": true,
+    "all_apk_zip_crcs_valid": true,
+    "certificate_sha256": "5fe9cea48690773d6fe2d2b3234cdc5da67ebf2e6caddaba338755d0166fb0e3",
+    "same_certificate_as_zenin_v3": true,
+    "android_device_tested": false
+  },
+  "native": {
+    "native_ui_key_hints_verified": true,
+    "local_key_expiration": null,
+    "day_week_year_time_jumps_passed": true,
+    "fresh_login_after_a_year_passed": true,
+    "extended_url_buffers_and_original_slot_sentinels_preserved": true,
+    "payload_sha256": "d86997426678408b39eff8bf77e7f626aab1c58d95ada7cd7cef1a897422c1b4",
+    "baseline_regressions_reproduced": {},
+    "manual_input_cases": 7,
+    "original_android_clipboard_path_cases": 4,
+    "clipboard_failure_finishes_pending_request": true,
+    "real_original_hook_switch_and_memory_updates_executed": true,
+    "original_session_binding_initializer_and_final_startup_check_executed": true,
+    "success_remains_active_across_three_worker_iterations": true,
+    "original_hooks_restored_on_shutdown": true,
+    "session_survives_login_ui_closing": true,
+    "original_public_gates_tested": 5,
+    "wrong_stored_token_rejected": true,
+    "original_contact_initializer_and_decoder_executed": true,
+    "contact_urls": [
+      "https://t.me/NuarDLC_News",
+      "https://t.me/NuarDLC_News"
+    ],
+    "contact_buffer_guard_bytes_preserved": true,
+    "aslr_base": "0x7000000000",
+    "native_network_calls": 0,
+    "android_device_tested": false,
+    "stubs": [
+      "Android JNI environment/context and Java clipboard responses",
+      "pthread mutexes",
+      "memory allocation/free",
+      "clock and sleep",
+      "C++ static guards",
+      "OS memory accessibility checks",
+      "Android system properties and libc string length"
+    ],
+    "limits": "Executes native clipboard retrieval, normalization, UI state, session and hook transitions; Android rendering and full game startup require a device."
+  },
+  "repack": {
+    "original_sha256": "58754df98745abaf69db351d3fd3d0a7f45306995731dc3c1a0964907e307f1e",
+    "changed_entries": [
+      {
+        "name": "AndroidManifest.xml",
+        "size": 71972,
+        "sha256": "a6da16174eeb336be36f3be4fed8a79dcff766f2de481ffc3d35a809cf648b74"
+      },
+      {
+        "name": "assets/VozmiteMeniaNaRabotuNoTolkoNeTolchkiPidoritIseAndRestPidorasi",
+        "size": 123539168,
+        "sha256": "d86997426678408b39eff8bf77e7f626aab1c58d95ada7cd7cef1a897422c1b4"
+      }
+    ],
+    "unchanged_compressed_streams": 3484,
+    "unsigned_size": 2285285317
+  },
+  "packaging": {
+    "format": "ZIP64",
+    "zip_size": 2101097534,
+    "zip_sha256": "874c99502379dcebd3e92deb4ecb5432d7c0d083fa85446eda96ea63ed96cdae",
+    "apk_size": 2285308923,
+    "apk_sha256": "87c2615f4fb39c5a543cc02bd4e8f4517e836870c6c7ec2bd2f4af58249dd989",
+    "full_python_extraction_sha256_verified": true,
+    "sevenzip_crc_test_passed": true,
+    "infozip_crc_test_passed": true
+  },
+  "android_device_tested": false
+}

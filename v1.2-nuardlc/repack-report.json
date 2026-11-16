@@ -1,0 +1,17 @@
+{
+  "original_sha256": "58754df98745abaf69db351d3fd3d0a7f45306995731dc3c1a0964907e307f1e",
+  "changed_entries": [
+    {
+      "name": "AndroidManifest.xml",
+      "size": 71972,
+      "sha256": "a6da16174eeb336be36f3be4fed8a79dcff766f2de481ffc3d35a809cf648b74"
+    },
+    {
+      "name": "assets/VozmiteMeniaNaRabotuNoTolkoNeTolchkiPidoritIseAndRestPidorasi",
+      "size": 123539168,
+      "sha256": "d86997426678408b39eff8bf77e7f626aab1c58d95ada7cd7cef1a897422c1b4"
+    }
+  ],
+  "unchanged_compressed_streams": 3484,
+  "unsigned_size": 2285285317
+}
