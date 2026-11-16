@@ -1,0 +1,34 @@
+name: Publish verified Zenin 1.2 NuarDLC News
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      GIT_LFS_SKIP_SMUDGE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+          persist-credentials: false
+      - name: Fetch only the verified ready ZIP64
+        run: |
+          GIT_LFS_SKIP_SMUDGE=0 git -c credential.helper='!gh auth git-credential' lfs pull --include='artifacts/Zenin_v1.2_NuarDLC_News.zip' --exclude=''
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          report=json.loads(Path('v1.2-nuardlc/packaging-verification.json').read_text())
+          p=Path('artifacts/Zenin_v1.2_NuarDLC_News.zip')
+          assert p.stat().st_size==report['zip_size']
+          with p.open('rb') as f:assert hashlib.file_digest(f,'sha256').hexdigest()==report['zip_sha256']
+          print('PASS: downloaded ready artifact matches the locally verified ZIP64')
+          PY
+      - name: Publish the ready ZIP and verification reports
+        run: |
+          gh release upload zenin-v1.2-nuardlc-news artifacts/Zenin_v1.2_NuarDLC_News.zip v1.2-nuardlc/SHA256SUMS v1.2-nuardlc/verification.json v1.2-nuardlc/native-verification.json v1.2-nuardlc/apk-verification.json v1.2-nuardlc/packaging-verification.json --clobber
+          gh release edit zenin-v1.2-nuardlc-news --draft=false --prerelease --title 'Zenin 1.2 — @NuarDLC_News' --notes-file v1.2-nuardlc/release-notes.md
