@@ -1,0 +1,31 @@
+{
+  "source_sha256": "58754df98745abaf69db351d3fd3d0a7f45306995731dc3c1a0964907e307f1e",
+  "source_size": 2285563072,
+  "changed_entries": [
+    {
+      "name": "assets/VozmiteMeniaNaRabotuNoTolkoNeTolchkiPidoritIseAndRestPidorasi",
+      "size": 123539168,
+      "sha256": "3cc10e8ec4b67f618482030604c8ce833c337d23fff5bdee3bd9527631622107",
+      "compression": {
+        "level": 9,
+        "mem_level": 8,
+        "legal_padding_bytes": 40248
+      }
+    },
+    {
+      "name": "AndroidManifest.xml",
+      "size": 71960,
+      "sha256": "51879e14eb22a148837967cf9e73639a8d051dd74af21b254de52111439f481d",
+      "compression": {
+        "level": 9,
+        "mem_level": 6,
+        "legal_padding_bytes": 178
+      }
+    }
+  ],
+  "local_record_offsets_preserved": true,
+  "compressed_spans_preserved": true,
+  "unchanged_entries": 3487,
+  "unchanged_entries_expected_compressed_sha256_recorded": true,
+  "unsigned_size": 2285563072
+}

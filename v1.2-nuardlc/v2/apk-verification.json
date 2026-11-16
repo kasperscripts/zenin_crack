@@ -1,0 +1,23 @@
+{
+  "apk_size": 2285563072,
+  "apk_sha256": "96656cba9da615a4a8f103fc5ee2469c8fbd1a77d203561c251ad4c86840e0ae",
+  "payload_sha256": "3cc10e8ec4b67f618482030604c8ce833c337d23fff5bdee3bd9527631622107",
+  "apk_signature_v2_v3_valid": true,
+  "certificate_sha256": "a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc",
+  "same_certificate_as_original_source": true,
+  "zipalign_16kb_check_passed": true,
+  "all_apk_zip_crcs_valid": true,
+  "all_local_record_and_data_offsets_match_original": true,
+  "all_compressed_spans_preserved": true,
+  "unchanged_compressed_streams_verified": 3487,
+  "only_changed_entries": [
+    "AndroidManifest.xml",
+    "assets/VozmiteMeniaNaRabotuNoTolkoNeTolchkiPidoritIseAndRestPidorasi"
+  ],
+  "application_and_main_activity_labels": [
+    "@NuarDLC_News",
+    "@NuarDLC_News"
+  ],
+  "android_device_tested": false,
+  "physical_vk_account_loading_tested": false
+}

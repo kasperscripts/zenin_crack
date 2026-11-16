@@ -1,0 +1,13 @@
+{
+  "version": "1.2-fix-v2",
+  "key": "@NuarDLC_News",
+  "local_key_expiration": null,
+  "source_server_key_used": false,
+  "native_regression_report": "native-verification.json",
+  "expiration_report": "epoch-expiration-verification.json",
+  "apk_report": "apk-verification.json",
+  "native_regressions_passed": true,
+  "full_android_game_startup_tested": false,
+  "vk_loading_82_percent_crash_reproduced_on_device": false,
+  "scope": "Correct reproduced unsafe pointer writes and token/binding behavior, restore the source signer and layout, complete identified display branding; physical VK startup needs device verification."
+}

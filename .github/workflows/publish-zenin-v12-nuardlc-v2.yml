@@ -1,0 +1,34 @@
+name: Publish verified NuarDLC News 1.2 fix v2
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      GIT_LFS_SKIP_SMUDGE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+          persist-credentials: false
+      - name: Fetch and verify the ready ZIP64
+        run: |
+          GIT_LFS_SKIP_SMUDGE=0 git -c credential.helper='!gh auth git-credential' lfs pull --include='artifacts/NuarDLC_News_v1.2_fix_v2.zip' --exclude=''
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          report=json.loads(Path('v1.2-nuardlc/v2/packaging-verification.json').read_text())
+          p=Path('artifacts/NuarDLC_News_v1.2_fix_v2.zip')
+          assert p.stat().st_size==report['zip_size']
+          with p.open('rb') as f:assert hashlib.file_digest(f,'sha256').hexdigest()==report['zip_sha256']
+          print('PASS: ready ZIP matches the locally verified artifact')
+          PY
+      - name: Publish artifact and verification reports
+        run: |
+          gh release upload zenin-v1.2-nuardlc-news-v2 artifacts/NuarDLC_News_v1.2_fix_v2.zip v1.2-nuardlc/v2/SHA256SUMS v1.2-nuardlc/v2/native-verification.json v1.2-nuardlc/v2/epoch-expiration-verification.json v1.2-nuardlc/v2/apk-verification.json v1.2-nuardlc/v2/packaging-verification.json --clobber
+          gh release edit zenin-v1.2-nuardlc-news-v2 --draft=false --prerelease --title 'NuarDLC_News 1.2 — исправление запуска, v2' --notes-file v1.2-nuardlc/v2/release-notes.md

@@ -1,0 +1,47 @@
+{
+  "native_ui_key_hints_verified": true,
+  "local_key_expiration": null,
+  "day_week_year_time_jumps_passed": true,
+  "fresh_login_after_a_year_passed": true,
+  "original_url_cache_bounds_and_read_only_redirect_verified": true,
+  "payload_sha256": "3cc10e8ec4b67f618482030604c8ce833c337d23fff5bdee3bd9527631622107",
+  "baseline_regressions_reproduced": {
+    "previous_null_replacement_overwrote_original": true,
+    "previous_missing_original_was_activated": true,
+    "previous_cleanup_restored_null": true,
+    "previous_invalid_binding_kept_hooks_active": true,
+    "incomplete_records_preserve_original_and_retry": true,
+    "cleanup_never_restores_null": true,
+    "invalid_binding_suspends_and_restored_binding_resumes_hooks": true,
+    "original_64bit_token_marker_bits_preserved": true
+  },
+  "manual_input_cases": 7,
+  "original_android_clipboard_path_cases": 4,
+  "clipboard_failure_finishes_pending_request": true,
+  "real_original_hook_switch_and_memory_updates_executed": true,
+  "original_session_binding_initializer_and_final_startup_check_executed": true,
+  "success_remains_active_across_three_worker_iterations": true,
+  "original_hooks_restored_on_shutdown": true,
+  "session_survives_login_ui_closing": true,
+  "original_public_gates_tested": 5,
+  "wrong_stored_token_rejected": true,
+  "original_contact_initializer_and_decoder_executed": true,
+  "contact_urls": [
+    "https://t.me/NuarDLC_News",
+    "https://t.me/NuarDLC_News"
+  ],
+  "contact_buffer_guard_bytes_preserved": true,
+  "aslr_base": "0x7000000000",
+  "native_network_calls": 0,
+  "android_device_tested": false,
+  "stubs": [
+    "Android JNI environment/context and Java clipboard responses",
+    "pthread mutexes",
+    "memory allocation/free",
+    "clock and sleep",
+    "C++ static guards",
+    "OS memory accessibility checks",
+    "Android system properties and libc string length"
+  ],
+  "limits": "Executes native clipboard retrieval, normalization, UI state, session and hook transitions; Android rendering and full game startup require a device."
+}
